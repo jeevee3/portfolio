@@ -1,0 +1,864 @@
+@import url("https://fonts.googleapis.com/css?family=DM+Sans:400,500|Jost:400,500,600&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: #fff;
+  font-family: "Avantgarde", sans-serif;
+  background-image: url("https://wallpaperwaifu.com/wp-content/uploads/2023/01/may-sitting-near-waterfall-pokemon-emerald-pixel-thumb.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  position: relative;
+  padding: 20px;
+}
+
+/* ---------- Card ---------- */
+
+.card {
+  max-width: 340px;
+  width: 100%;
+  grid-column: 1;
+  margin: auto auto auto 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s;
+  border-radius: 10px;
+  box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.card[data-state="#about"] {
+  height: 450px;
+}
+
+.card[data-state="#about"] .card-main {
+  padding-top: 0;
+}
+
+.card[data-state="#contact"] {
+  height: 430px;
+}
+
+.card[data-state="#portfolio"] {
+  height: 300px;
+}
+
+/* Compact header (applied when leaving the About tab) */
+
+.card.is-active .card-header {
+  height: 80px;
+}
+
+.card.is-active .card-cover {
+  height: 100px;
+  top: -50px;
+}
+
+.card.is-active .card-avatar {
+  transform: none;
+  left: 20px;
+  width: 50px;
+  height: 50px;
+  bottom: 10px;
+}
+
+.card.is-active .card-fullname,
+.card.is-active .card-jobtitle {
+  left: 86px;
+  transform: none;
+}
+
+.card.is-active .card-fullname {
+  bottom: 18px;
+  font-size: 19px;
+}
+
+.card.is-active .card-jobtitle {
+  bottom: 16px;
+  letter-spacing: 1px;
+  font-size: 10px;
+}
+
+/* ---------- Header ---------- */
+
+.card-header {
+  position: relative;
+  display: flex;
+  height: 200px;
+  flex-shrink: 0;
+  width: 100%;
+  transition: 0.3s;
+}
+
+.card-header * {
+  transition: 0.3s;
+}
+
+.card-cover {
+  position: absolute;
+  width: 100%;
+  height: 160px;
+  top: -20%;
+  left: 0;
+  will-change: top;
+  background-size: cover;
+  background-position: center;
+  filter: blur(30px);
+  transform: scale(1.2);
+  transition: 0.5s;
+}
+
+.card-avatar {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+  transform: translateX(-50%) translateY(-64px);
+}
+
+.card-fullname {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+  transform: translateY(-10px) translateX(-50%);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+}
+
+.card-jobtitle {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin: 0;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transform: translateX(-50%) translateY(-7px);
+}
+
+/* ---------- Main ---------- */
+
+.card-main {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+}
+
+.card-subtitle {
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.card-desc {
+  margin: 0;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "DM Sans", sans-serif;
+}
+
+/* ---------- Social ---------- */
+
+.card-social {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  margin-bottom: 30px;
+}
+
+.card-social svg {
+  display: block;
+  width: 16px;
+  fill: #fff;
+  transition: 0.3s;
+}
+
+.card-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  width: 32px;
+  margin-right: 10px;
+  border-radius: 50%;
+  color: #8797a1;
+  background-color: rgba(255, 255, 255, 0.18);
+  transition: 0.3s;
+}
+
+.card-social a:hover svg {
+  fill: #cfd8ff;
+}
+
+.card-social a:last-child {
+  margin-right: 0;
+}
+
+/* ---------- Tab buttons ---------- */
+
+.card-buttons {
+  display: flex;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  margin-top: auto;
+  background-color: transparent;
+}
+
+.card-buttons button {
+  flex: 1 1 auto;
+  user-select: none;
+  background: 0;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  padding: 15px 5px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: "Jost", sans-serif;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  outline: 0;
+  transition: 0.3s;
+}
+
+.card-buttons button.is-active,
+.card-buttons button:hover {
+  color: #fff;
+  border-bottom: 3px solid #8a84ff;
+  background: linear-gradient(
+    to bottom,
+    rgba(127, 199, 231, 0) 0%,
+    rgba(207, 204, 255, 0.2) 44%,
+    rgba(211, 226, 255, 0.4) 100%
+  );
+}
+
+/* ---------- Sections ---------- */
+
+.card-section {
+  display: none;
+}
+
+.card-section.is-active {
+  display: block;
+  animation: fadeIn 0.6s both;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* ---------- Timeline ---------- */
+
+.card-timeline {
+  margin-top: 30px;
+  position: relative;
+}
+
+.card-timeline:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 42px;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(
+    to top,
+    rgba(134, 214, 243, 0) 0%,
+    rgba(81, 106, 204, 1) 100%
+  );
+}
+
+.card-item {
+  position: relative;
+  z-index: 1;
+  padding-left: 60px;
+  padding-right: 20px;
+  padding-bottom: 30px;
+}
+
+.card-item:last-child {
+  padding-bottom: 5px;
+}
+
+.card-item:after {
+  content: attr(data-year);
+  position: absolute;
+  top: 0;
+  left: 37px;
+  width: 8px;
+  height: 8px;
+  line-height: 0.6;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  font-size: 11px;
+  text-indent: -35px;
+  color: rgba(255, 255, 255, 0.75);
+  background: linear-gradient(to bottom, #7d91d9 0%, #516acc 100%);
+}
+
+.card-item-title {
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.card-item-desc {
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: "DM Sans", sans-serif;
+}
+
+/* ---------- Portfolio container (BIG, to the right of the profile) ---------- */
+
+.gallery-card {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 400px;             /* starts after the profile card */
+  right: 20px;
+  margin: auto;            /* centered in the free space */
+  max-width: 1300px;
+  height: fit-content;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;        /* scrolls inside if there are many images */
+  padding: 24px;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+  box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.gallery-card.is-visible {
+  display: block;
+  animation: fadeIn 0.6s both;
+}
+
+/* Phones / very narrow screens only: put the portfolio under the profile
+   (the profile still stays on the left) */
+@media (max-width: 800px) {
+  body {
+    gap: 30px;
+  }
+
+  .gallery-card {
+    position: relative;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    margin: 0;
+    width: 100%;
+    max-width: none;
+    max-height: none;
+    overflow-y: visible;
+  }
+}
+
+/* ---------- Gallery images (BIGGER: 2 per row) ---------- */
+
+.img-list {
+  list-style: none;
+  padding: 0;
+  margin: 14px 0 0;
+  display: flow-root; /* contains the floated items */
+}
+
+.img-list li {
+  border: 5px solid transparent;
+  box-sizing: border-box;
+  width: 50%;
+  float: left;
+  position: relative;
+  cursor: pointer;
+}
+
+.img-list img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Image placeholder */
+.img-placeholder:before,
+.img-placeholder:after {
+  padding-top: 50%;
+  content: "";
+  display: block;
+}
+
+.img-placeholder {
+  background: #222;
+  box-shadow: 0 0 0 8px #222 inset, 0 0 0 9px #333 inset;
+  color: #444;
+  line-height: 0;
+  text-align: center;
+  display: block;
+}
+
+/* Hover effect */
+.img-list li:before {
+  transition: all 0.5s ease;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #333;
+  transform: scale(0);
+}
+
+.img-list li:hover:before {
+  opacity: 0.5;
+  transform: scale(1);
+}
+
+.img-list li:after {
+  transition: all 0.6s ease 0.2s;
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border: 1px solid #aaa;
+  background: #000;
+  opacity: 0;
+  transform: scale(0);
+}
+
+.img-list li:hover:after {
+  opacity: 0.35;
+  transform: scale(1);
+}
+
+/* ---------- Contact ---------- */
+
+.card-contact-wrapper {
+  margin-top: 20px;
+}
+
+.card-contact {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: "DM Sans", sans-serif;
+}
+
+.card-contact + .card-contact {
+  margin-top: 16px;
+}
+
+.card-contact svg {
+  flex-shrink: 0;
+  width: 30px;
+  min-height: 34px;
+  margin-right: 12px;
+  padding-right: 12px;
+  border-right: 1px solid rgba(255, 255, 255, 0.35);
+  transition: 0.3s;
+}
+
+.contact-me {
+  width: 100%;
+  margin-top: 25px;
+  padding: 12px 16px;
+  border: 0;
+  outline: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Jost", sans-serif;
+  cursor: pointer;
+  background: linear-gradient(
+    to right,
+    rgba(83, 200, 239, 0.8) 0%,
+    rgba(81, 106, 204, 0.8) 96%
+  );
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  transition: 0.3s;
+}
+
+/* ---------- Upload form ---------- */
+
+.upload-form {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 14px;
+  font-size: 13px;
+}
+
+.upload-form input[type="file"] {
+  flex: 1;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: "DM Sans", sans-serif;
+}
+
+.upload-form button {
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 5px;
+  color: #fff;
+  font-family: "Jost", sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  background: linear-gradient(to right, rgba(83, 200, 239, 0.8), rgba(81, 106, 204, 0.8));
+}
+
+.gallery-msg {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: #9dffb0;
+}
+
+.gallery-msg.error {
+  color: #ffb3b3;
+}
+
+.img-empty {
+  width: 100% !important;
+  float: none !important;
+  cursor: default !important;
+  padding: 20px 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.img-empty:before,
+.img-empty:after {
+  display: none;
+}
+
+/* Delete button on each image */
+.delete-form {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 3;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.img-list li:hover .delete-form {
+  opacity: 1;
+}
+
+.delete-form button {
+  width: 26px;
+  height: 26px;
+  border: 0;
+  border-radius: 50%;
+  font-size: 16px;
+  line-height: 1;
+  color: #fff;
+  background: rgba(200, 40, 40, 0.85);
+  cursor: pointer;
+}
+
+/* =========================================================
+   EXPERIMENT: justified photo gallery (class: .photogallery)
+   Converted from Sass. To go back to the old look, change the
+   <ul class="photogallery"> in the blade back to class="img-list".
+   (The original "body background" line was left out so your
+   waterfall background stays.)
+   ========================================================= */
+
+.photogallery {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0.2em;
+  padding: 0;
+  list-style-type: none;
+}
+
+.photogallery::after {
+  content: "";
+  display: block;
+  flex-grow: 10;
+}
+
+@media (max-aspect-ratio: 1/1) and (max-width: 480px) {
+  .photogallery {
+    flex-direction: row;
+  }
+}
+
+.photogallery li {
+  position: relative;      /* needed for the delete button */
+  flex-grow: 1;
+  height: 40vh;
+  margin: 0.2em;
+}
+
+@media (max-aspect-ratio: 1/1) {
+  .photogallery li {
+    height: 30vh;
+  }
+}
+
+@media (max-height: 480px) {
+  .photogallery li {
+    height: 80vh;
+  }
+}
+
+@media (max-aspect-ratio: 1/1) and (max-width: 480px) {
+  .photogallery li {
+    height: auto;
+    width: 100%;
+  }
+}
+
+.photogallery li img {
+  display: block;
+  min-width: 100%;
+  height: 100%;
+  object-fit: cover;
+  font-family: "object-fit: cover;";
+}
+
+@media (max-aspect-ratio: 1/1) and (max-width: 480px) {
+  .photogallery li img {
+    width: 100%;
+    max-height: 75vh;
+    min-width: 0;
+  }
+}
+
+.photogallery li img.lazyload {
+  opacity: 0;
+}
+
+.photogallery li img.lazyload.loaded {
+  opacity: 1;
+}
+
+/* keep the delete button and the "empty" message working */
+.photogallery li:hover .delete-form {
+  opacity: 1;
+}
+
+.photogallery li.img-empty {
+  height: auto;
+  flex-grow: 1;
+}
+
+/* =========================================================
+   LIGHTBOX: click an image to see it in full (not fullscreen)
+   ========================================================= */
+
+/* hover effect on the thumbnails */
+.photogallery li {
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.photogallery li img {
+  cursor: zoom-in;
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.photogallery li:hover img {
+  transform: scale(1.08);
+  filter: brightness(1.1);
+}
+
+/* dark blurred background behind the popup */
+.lightbox {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 12, 25, 0.65);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* the full image, shown uncropped inside a frame (~75% of the screen) */
+.lightbox-img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 75vw;
+  max-height: 75vh;
+  object-fit: contain;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.15), 0 20px 60px rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.05);
+  transform: scale(0.6) rotate(-4deg);
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.25), opacity 0.4s ease;
+}
+
+.lightbox.is-open .lightbox-img {
+  transform: scale(1) rotate(0deg);
+  opacity: 1;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  font-size: 26px;
+  line-height: 1;
+  color: #fff;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.2);
+  transition: 0.3s;
+}
+
+.lightbox-close:hover {
+  background: rgba(200, 40, 40, 0.85);
+  transform: rotate(90deg);
+}
+
+/* ---------- Photos tab (replaces Contact) ---------- */
+
+.card[data-state="#photos"] {
+  height: 300px;
+}
+
+/* =========================================================
+   SECRET VAULT TRIGGER
+   ========================================================= */
+
+/* invisible click area (top-right corner of the profile header) */
+.vault-hotspot {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  opacity: 0;
+  cursor: default;
+  outline: none;
+  z-index: 5;
+}
+
+/* tiny password box */
+.vault-prompt {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.vault-prompt.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.vault-prompt input {
+  width: 240px;
+  padding: 12px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 15px;
+  text-align: center;
+  outline: none;
+  transform: scale(0.8);
+  transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.25);
+}
+
+.vault-prompt.is-open input {
+  transform: scale(1);
+}
+
+.vault-prompt input.is-wrong {
+  border-color: #ff9a9a;
+  animation: vaultShake 0.4s;
+}
+
+@keyframes vaultShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
